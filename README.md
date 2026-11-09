@@ -27,3 +27,10 @@ Python's standard library has no built-in Chinese Remainder Theorem solver, and 
 ## The awkward edge
 
 Residues are normalised with `%` before use, so negative residues and residues larger than their modulus are accepted. The returned solution is always in `[0, M)`. If you pass a modulus that is not strictly positive, or two moduli that share a factor, `crt` raises `CRTError` rather than guessing. An empty input also raises `CRTError`, because the empty system has no unique solution.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
